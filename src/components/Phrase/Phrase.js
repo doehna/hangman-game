@@ -16,7 +16,7 @@ function Phrase({ phrase }) {
   console.log(typeof phraseArray);
 
   return (
-    <ol>
+    <ol className={styles.phrase}>
       {phraseArray.map((letter, index) => {
         return (
           <Letter key={index} styles={styles}>

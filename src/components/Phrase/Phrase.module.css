@@ -10,7 +10,7 @@ ol {
   width: 40px;
   height: 66px;
   padding: 6px 12px; /* top/bottom, left/right */
-    box-shadow: inset 0 6px 0px 6px rgba(60,116,255, 1), 0 -2px 0px 3px rgba(20, 14, 102, 1);  
+    box-shadow: inset 0 -2px 0px 3px rgba(20, 14, 102, 1), inset 0 1px 0px 6px rgba(60,116,255, 1);
   border-radius: 12px;
   background-color: rgba(36, 98, 255, 1);
   display:flex;
@@ -19,6 +19,16 @@ ol {
   color: rgba(255, 255, 255, 1);
   font-size: 40px;
   box-sizing: border-box;
+}
+
+.phrase {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  border: none;
 }
 
 
