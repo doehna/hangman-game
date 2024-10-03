@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Letter({children}) {
+function Letter({styles="", children}) {
     return (
-        <li>{children}</li>
+        <li><div className={styles.letter}>{children}</div></li>
     )
 }
 

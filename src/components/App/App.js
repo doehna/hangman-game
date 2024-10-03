@@ -1,15 +1,12 @@
 import React from "react";
-import Keyboard from "../Keyboard/Keyboard";
-import Phrase from "../Phrase/Phrase";
-import Header from "../Header/Header";
+import GuessesProvider from "../GuessesProvider/"
+import Home from "../Home/Home";
 
 function App() {
   return (
-    <>
-      <Header></Header>
-      <Phrase></Phrase>
-      <Keyboard></Keyboard>
-    </>
+    <GuessesProvider>
+      <Home />
+    </GuessesProvider>
   );
 }
 

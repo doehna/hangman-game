@@ -1,0 +1,59 @@
+:root {
+  --dark-navy: rgb(38, 22, 118, 1);
+}
+
+@font-face {
+  font-family: "MouseMemoirs-Regular";
+  src: url("./assets/fonts/MouseMemoirs-Regular.ttf");
+}
+
+body {
+  background-image: url(./assets/images/background-mobile.svg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  font-family: "MouseMemoirs-Regular";
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 86%;
+  max-width: 324px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (min-width: 481px) {
+  body {
+    background-image: url(./assets/images/background-tablet.svg);
+  }
+
+  #root {
+    width: 92%;
+    max-width: 704px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  body {
+    background-image: url(./assets/images/background-desktop.svg);
+  }
+
+  #root {
+    width: 84.4%;
+    max-width: 1216px;
+  }
+}

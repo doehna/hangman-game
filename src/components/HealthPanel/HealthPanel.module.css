@@ -1,0 +1,73 @@
+.healthPanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16;
+  width: 99px;
+  max-width: 99px;
+}
+
+.iconHeart {
+  width: 26px;
+  height: 24px;
+}
+
+.total {
+  height: 16px;
+  width: 57px;
+  background-color: #ffffff;
+  border-radius: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.progress {
+  height: 8px;
+  background-color: var(--dark-navy);
+  max-width: 49px;
+  border-radius: 96px;
+  margin: 4px;
+}
+
+@media only screen and (min-width: 481px) {
+  .healthPanel {
+    gap: 40;
+    width: 253px;
+    max-width: 253px;
+  }
+
+  .iconHeart {
+    width: 53px;
+    height: 48px;
+  }
+
+  .total {
+    height: 31px;
+    width: 160px;
+  }
+
+  .progress {
+    height: 13px;
+    max-width: 142px;
+    margin: 9px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .healthPanel {
+    gap: 40;
+    width: 333px;
+    max-width: 333px;
+  }
+
+  .total {
+    width: 240px;
+  }
+
+  .progress {
+    max-width: 222px;
+    margin: 9px;
+  }
+}

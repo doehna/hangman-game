@@ -26,3 +26,5 @@ export const ALPHABET = [
   "Y",
   "Z",
 ];
+
+export const TOTAL_WRONG_GUESSES = 8;
