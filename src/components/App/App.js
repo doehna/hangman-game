@@ -1,12 +1,12 @@
 import React from "react";
-import GuessesProvider from "../GuessesProvider/"
+import DataProvider from "../DataProvider/"
 import Home from "../Home/Home";
 
 function App() {
   return (
-    <GuessesProvider>
+    <DataProvider>
       <Home />
-    </GuessesProvider>
+    </DataProvider>
   );
 }
 

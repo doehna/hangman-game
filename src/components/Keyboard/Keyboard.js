@@ -2,11 +2,11 @@ import React from "react";
 import Letter from "../Letter/Letter";
 import Button from "../Button/Button";
 import styles from "./Keyboard.module.css";
-import { WrongGuessesContext } from "../GuessesProvider/GuessesProvider";
+import { DataContext } from "../DataProvider/DataProvider";
 import {STATUS} from '../../constants';
 
-function Keyboard(isBlocked = false) {
-  const { alphabet, setAlphabet } = React.useContext(WrongGuessesContext);
+function Keyboard({isBlocked = false}) {
+  const { alphabet, setAlphabet } = React.useContext(DataContext);
 
   const handleClick = (event) => {
     let id = event.target.id || event.target.parentElement.id;

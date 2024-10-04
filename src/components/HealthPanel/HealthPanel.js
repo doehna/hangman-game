@@ -2,11 +2,11 @@ import React from "react";
 import ProgressBar from "../ProgressBar";
 import styles from "./HealthPanel.module.css";
 import iconHeart from "../../assets/images/icon-heart.svg";
-import { WrongGuessesContext } from "../GuessesProvider/GuessesProvider";
+import { DataContext } from "../DataProvider/DataProvider";
 import { TOTAL_WRONG_GUESSES } from "../../constants";
 
 function HealthPanel() {
-  const { wrongGuessesCount } = React.useContext(WrongGuessesContext);
+  const { wrongGuessesCount } = React.useContext(DataContext);
 
   return (
     <div className={styles.healthPanel}>

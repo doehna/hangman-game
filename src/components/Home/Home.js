@@ -1,54 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Keyboard from "../Keyboard/Keyboard";
 import Phrase from "../Phrase/Phrase";
 import Header from "../Header/Header";
 import Loader from "../Loader/Loader";
 import styles from "./Home.module.css";
-import useFetch from "../../hooks/useFetch";
-import { ENDPOINT } from "../../constants";
+import { DataContext } from "../DataProvider/DataProvider";
 
 function Home() {
-  const { jsonData, isLoading } = useFetch(ENDPOINT);
-  const [data, setData] = useState(null);
-  const [phrase, setPhrase] = useState(null);
+  const {phrase, isLoading} = React.useContext(DataContext);
 
-  useEffect(() => {
-    if (jsonData) {
-      setData(jsonData.categories);
-    }
-  }, [jsonData]);
+  console.log(phrase);
 
-  useEffect(() => {
-    const setElementAsSelected = (category, phrase) => {
-      if (!data || !Array.isArray(data[category])) {
-        return;
-      }
+  // useEffect(() => {
+  //   if (jsonData) {
+  //     setData(jsonData.categories);
+  //   }
+  // }, [jsonData]);
 
-      const newData = {...data};
-      const selectedElement = newData[category].find((item) => item.name === phrase.name);
-      if (selectedElement) {
-        selectedElement.selected = true;
-        setData(newData);
-        console.log(newData);
-      }
-    };
+  // useEffect(() => {
+  //   const setElementAsSelected = (category, phrase) => {
+  //     if (!data || !Array.isArray(data[category])) {
+  //       return;
+  //     }
 
-    if (data) {
-      const unselectedPhrases = data["Movies"].filter(
-        (element) => element.selected !== true
-      );
-      const randomElementIndex = Math.floor(
-        Math.random() * unselectedPhrases.length
-      );
-      const selectedPhrase = unselectedPhrases[randomElementIndex];
+  //     const newData = {...data};
+  //     const selectedElement = newData[category].find((item) => item.name === phrase.name);
+  //     if (selectedElement) {
+  //       selectedElement.selected = true;
+  //       setData(newData);
+  //       console.log(newData);
+  //     }
+  //   };
 
-      setPhrase(selectedPhrase);
-      console.log(selectedPhrase)
-      setElementAsSelected("Movies", selectedPhrase);
-    }
-  }, []);
+  //   if (data) {
+  //     const unselectedPhrases = data["Movies"].filter(
+  //       (element) => element.selected !== true
+  //     );
+  //     const randomElementIndex = Math.floor(
+  //       Math.random() * unselectedPhrases.length
+  //     );
+  //     const selectedPhrase = unselectedPhrases[randomElementIndex];
 
-  console.log(data);
+  //     setPhrase(selectedPhrase);
+  //     console.log(selectedPhrase)
+  //     setElementAsSelected("Movies", selectedPhrase);
+  //   }
+  // }, []);
 
   return (
     <>
