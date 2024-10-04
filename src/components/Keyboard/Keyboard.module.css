@@ -1,0 +1,53 @@
+.keyboard {
+  display: grid;
+
+  grid-template-columns: repeat(9, 1fr);
+  width: 86%;
+  margin: 0px;
+  padding: 0px;
+  row-gap: 24px;
+  column-gap: 8px;
+}
+
+.letter {
+    font-family: "MouseMemoirs-Regular";
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(38, 22, 118, 1);
+  height: 56px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 24px;
+}
+
+.disabled {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+@media only screen and (min-width: 481px) {
+  .letter {
+    height: 84px;
+    border-radius: 24px;
+    font-size: 48px;
+  }
+
+  .keyboard {
+    width: 92%;
+    column-gap: 16px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+    .letter {
+      height: 84px;
+    }
+
+  .keyboard {
+    width: 81%;
+        column-gap: 24px;
+  }
+}

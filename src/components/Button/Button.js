@@ -1,8 +1,10 @@
 import React from 'react';
+import styles from "./Button.module.css";
 
-function Button({className="", ...delegated}) {
+function Button({className="", id, children, ...delegated}) {
     return (
-        <button className={className} {...delegated}>
+        <button id={id} className={`${styles.button} ${className}`} {...delegated}>
+            {children}
         </button>
     )
 }

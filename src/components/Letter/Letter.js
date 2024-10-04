@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
-function Letter({styles="", children}) {
-    return (
-        <li><div className={styles.letter}>{children}</div></li>
-    )
+function Letter({ styles = "", children, isHidden=false }) {
+  return <div className={`${styles.letter} ${children === " " && styles.empty}`}>{!isHidden ? children : ""}</div>;
 }
 
 export default Letter;

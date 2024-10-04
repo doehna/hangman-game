@@ -8,8 +8,6 @@ import { TOTAL_WRONG_GUESSES } from "../../constants";
 function HealthPanel() {
   const { wrongGuessesCount } = React.useContext(WrongGuessesContext);
 
-  console.log(wrongGuessesCount);
-
   return (
     <div className={styles.healthPanel}>
       <ProgressBar

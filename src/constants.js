@@ -28,3 +28,9 @@ export const ALPHABET = [
 ];
 
 export const TOTAL_WRONG_GUESSES = 8;
+export const ENDPOINT = '/data/data.json';
+
+export const STATUS = {
+  ENABLED: "enabled",
+  DISABLED: "disabled",
+};
