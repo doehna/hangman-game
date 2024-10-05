@@ -8,13 +8,13 @@ import {
 import useFetch from "../../hooks/useFetch";
 
 export const DataContext = React.createContext();
-const category = "Movies";
 
 function DataProvider({ children }) {
   const { jsonData, isLoading } = useFetch(ENDPOINT);
   const [data, setData] = React.useState(null);
   const [isLoadingState, setIsLoadingState] = React.useState(false);
   const [phrase, setPhrase] = React.useState(null);
+  const [category] = React.useState("Movies");
 
   const [wrongGuessesCount, setWrongGuessesCount] =
     React.useState(TOTAL_WRONG_GUESSES);
@@ -28,19 +28,19 @@ function DataProvider({ children }) {
     });
   });
 
-  React.useEffect(() => {
-    const setElementAsSelected = (category, phrase) => {
-      const newData = { ...jsonData };
-      const selectedElement = newData.categories[category].find(
-        (item) => item.name === phrase.name
-      );
-      if (selectedElement) {
-        selectedElement.selected = true;
-        setData(newData);
-        console.log(newData);
-      }
-    };
+  const setElementAsSelected = (selectedPhrase) => {
+    const newData = {...jsonData.categories};
+    const selectedElement = newData[category].find(
+      (item) => item.name === selectedPhrase.name
+    );
+    if (selectedElement) {
+      selectedElement.selected = true;
+      setData(newData);
+      console.log(newData);
+    }
+  };
 
+  const getRandomPhraseFromUnselectedPhrases = () => {
     if (!jsonData || !Array.isArray(jsonData.categories[category])) {
       return;
     }
@@ -52,9 +52,17 @@ function DataProvider({ children }) {
     );
     const selectedPhrase = unselectedPhrases[randomElementIndex];
 
-    setPhrase(selectedPhrase);
-    console.log(selectedPhrase);
-    setElementAsSelected(category, selectedPhrase);
+    return selectedPhrase;
+  };
+
+  React.useEffect(() => {
+    if (jsonData) {
+      const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
+
+      setPhrase(selectedPhrase);
+      console.log(selectedPhrase);
+      setElementAsSelected(selectedPhrase);
+    }
   }, [jsonData]);
 
   React.useEffect(() => {
