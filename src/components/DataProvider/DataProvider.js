@@ -11,7 +11,7 @@ export const DataContext = React.createContext();
 
 function DataProvider({ children }) {
   const { jsonData, isLoading } = useFetch(ENDPOINT);
-  const [data, setData] = React.useState(null);
+  //const [data, setData] = React.useState(null);
   const [isLoadingState, setIsLoadingState] = React.useState(false);
   const [phrase, setPhrase] = React.useState(null);
   const [category] = React.useState("Movies");
@@ -35,8 +35,6 @@ function DataProvider({ children }) {
     );
     if (selectedElement) {
       selectedElement.selected = true;
-      setData(newData);
-      console.log(newData);
     }
   };
 
@@ -74,7 +72,7 @@ function DataProvider({ children }) {
     setWrongGuessesCount,
     alphabet,
     setAlphabet,
-    phrase,
+    phrase: (phrase && phrase.name) ? phrase.name.toUpperCase() : null,
     isLoading: isLoadingState,
   };
 

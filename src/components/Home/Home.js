@@ -17,7 +17,7 @@ function Home() {
       {isLoading ? (
         <Loader />
       ) : (
-        <>{phrase && <Phrase phrase={phrase.name}></Phrase>}</>
+        <>{phrase && <Phrase></Phrase>}</>
       )}
       <Keyboard isBlocked={isLoading}></Keyboard>
     </>

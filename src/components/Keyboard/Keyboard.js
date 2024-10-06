@@ -3,19 +3,39 @@ import Letter from "../Letter/Letter";
 import Button from "../Button/Button";
 import styles from "./Keyboard.module.css";
 import { DataContext } from "../DataProvider/DataProvider";
-import {STATUS} from '../../constants';
+import { STATUS } from "../../constants";
+import { isLetterInPhrase } from "../../helpers/game-helper";
 
-function Keyboard({isBlocked = false}) {
-  const { alphabet, setAlphabet } = React.useContext(DataContext);
+function Keyboard({ isBlocked = false }) {
+  const {
+    alphabet,
+    setAlphabet,
+    wrongGuessesCount,
+    setWrongGuessesCount,
+    phrase,
+  } = React.useContext(DataContext);
 
   const handleClick = (event) => {
     let id = event.target.id || event.target.parentElement.id;
 
     const newAlphabet = [...alphabet];
-    let clickedLetter = newAlphabet.find(obj => obj.letter === id);
+    let clickedLetter = newAlphabet.find((obj) => obj.letter === id);
     clickedLetter.status = STATUS.DISABLED;
 
     setAlphabet(newAlphabet);
+
+    const isGuessCorrect = isLetterInPhrase(id, phrase);
+
+    if (isGuessCorrect) {
+      return;
+    }
+
+    if (wrongGuessesCount > 0) {
+      if (wrongGuessesCount === 1) {
+        window.alert("You lost");
+      }
+      setWrongGuessesCount(wrongGuessesCount - 1);
+    }
   };
 
   return (
@@ -27,11 +47,13 @@ function Keyboard({isBlocked = false}) {
               id={letter.letter}
               onClick={(event) => handleClick(event)}
               className={`${styles.letter} ${
-                isBlocked || letter.status === STATUS.DISABLED ? styles.disabled : ""
+                isBlocked || letter.status === STATUS.DISABLED
+                  ? styles.disabled
+                  : ""
               }`}
               disabled={isBlocked || letter.status === STATUS.DISABLED}
             >
-              <Letter >{letter.letter}</Letter>
+              <Letter>{letter.letter}</Letter>
             </Button>
           </li>
         );
