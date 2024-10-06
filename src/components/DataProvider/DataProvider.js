@@ -29,7 +29,7 @@ function DataProvider({ children }) {
   });
 
   const setElementAsSelected = (selectedPhrase) => {
-    const newData = {...jsonData.categories};
+    const newData = { ...jsonData.categories };
     const selectedElement = newData[category].find(
       (item) => item.name === selectedPhrase.name
     );
@@ -53,11 +53,22 @@ function DataProvider({ children }) {
     return selectedPhrase;
   };
 
+  const mapPhraseLetters = (phrase) => {
+    const phraseLetterArray = phrase.split("");
+    return phraseLetterArray.map((letter) => {
+      return {
+        letter : letter.toUpperCase(),
+        isSelected: false,
+      };
+    });
+  };
+
   React.useEffect(() => {
     if (jsonData) {
       const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
 
-      setPhrase(selectedPhrase);
+      setPhrase(() => mapPhraseLetters(selectedPhrase.name));
+
       console.log(selectedPhrase);
       setElementAsSelected(selectedPhrase);
     }
@@ -72,7 +83,8 @@ function DataProvider({ children }) {
     setWrongGuessesCount,
     alphabet,
     setAlphabet,
-    phrase: (phrase && phrase.name) ? phrase.name.toUpperCase() : null,
+    phrase,
+    setPhrase,
     isLoading: isLoadingState,
   };
 

@@ -13,6 +13,7 @@ function Keyboard({ isBlocked = false }) {
     wrongGuessesCount,
     setWrongGuessesCount,
     phrase,
+    setPhrase
   } = React.useContext(DataContext);
 
   const handleClick = (event) => {
@@ -24,7 +25,7 @@ function Keyboard({ isBlocked = false }) {
 
     setAlphabet(newAlphabet);
 
-    const isGuessCorrect = isLetterInPhrase(id, phrase);
+    const isGuessCorrect = isLetterInPhrase(id, phrase, setPhrase);
 
     if (isGuessCorrect) {
       return;

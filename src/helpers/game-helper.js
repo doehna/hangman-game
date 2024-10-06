@@ -1,9 +1,16 @@
+export const isLetterInPhrase = (letter, phrase, setPhrase) => {
+  if (!Array.isArray(phrase)) {
+    return;
+  }
 
+  const newPhrase = [...phrase];
 
-export const isLetterInPhrase = (letter, phrase) => {
-    if(typeof phrase !== "string") {
-        throw new Error("Incorrect phrase type. Phrase should always be string");
-    }
+  const foundLetter = newPhrase.filter((item) => item.letter === letter);
 
-    return phrase.indexOf(letter) >= 0;
-}
+  if (foundLetter && foundLetter.length > 0) {
+    foundLetter.forEach((item) => item.isSelected = true);
+    setPhrase(newPhrase);
+  }
+
+  return foundLetter.length > 0;
+};
