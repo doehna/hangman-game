@@ -32,6 +32,10 @@ ol {
   border: none;
 }
 
+.hidden {
+  opacity: 0.25;
+}
+
 .empty {
   opacity: 0;
 }
