@@ -11,10 +11,10 @@ export const DataContext = React.createContext();
 
 function DataProvider({ children }) {
   const { jsonData, isLoading } = useFetch(ENDPOINT);
-  //const [data, setData] = React.useState(null);
   const [isLoadingState, setIsLoadingState] = React.useState(false);
   const [phrase, setPhrase] = React.useState(null);
-  const [category] = React.useState("Movies");
+  const [category, setCategory] = React.useState(null);
+  const [categories, setCategories] = React.useState([]);
 
   const [wrongGuessesCount, setWrongGuessesCount] =
     React.useState(TOTAL_WRONG_GUESSES);
@@ -28,13 +28,19 @@ function DataProvider({ children }) {
     });
   });
 
+  const getCategoriesList = (json) => {
+    setCategories(Object.keys(json["categories"]));
+  };
+
   const setElementAsSelected = (selectedPhrase) => {
-    const newData = { ...jsonData.categories };
-    const selectedElement = newData[category].find(
-      (item) => item.name === selectedPhrase.name
-    );
-    if (selectedElement) {
-      selectedElement.selected = true;
+    if (category) {
+      const newData = { ...jsonData.categories };
+      const selectedElement = newData[category].find(
+        (item) => item.name === selectedPhrase.name
+      );
+      if (selectedElement) {
+        selectedElement.selected = true;
+      }
     }
   };
 
@@ -57,7 +63,7 @@ function DataProvider({ children }) {
     const phraseLetterArray = phrase.split("");
     return phraseLetterArray.map((letter) => {
       return {
-        letter : letter.toUpperCase(),
+        letter: letter.toUpperCase(),
         isSelected: false,
       };
     });
@@ -65,12 +71,15 @@ function DataProvider({ children }) {
 
   React.useEffect(() => {
     if (jsonData) {
-      const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
+      getCategoriesList(jsonData);
+      if (category) {
+        const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
 
-      setPhrase(() => mapPhraseLetters(selectedPhrase.name));
+        setPhrase(() => mapPhraseLetters(selectedPhrase.name));
 
-      console.log(selectedPhrase);
-      setElementAsSelected(selectedPhrase);
+        console.log(selectedPhrase);
+        setElementAsSelected(selectedPhrase);
+      }
     }
   }, [jsonData]);
 
@@ -86,6 +95,9 @@ function DataProvider({ children }) {
     phrase,
     setPhrase,
     isLoading: isLoadingState,
+    category,
+    setCategory,
+    categories,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
