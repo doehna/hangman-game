@@ -1,6 +1,7 @@
 import React from "react";
 import Letter from "../Letter/Letter";
 import styles from "./Phrase.module.css";
+import "../../global.css";
 import { DataContext } from "../DataProvider/DataProvider";
 
 function Phrase() {
@@ -11,7 +12,11 @@ function Phrase() {
       {phrase.map((letter, index) => {
         return (
           <li key={index}>
-            <Letter isHidden={!letter.isSelected} styles={styles}>
+            <Letter
+              isHidden={!letter.isSelected}
+              className={`blueRectangle ${styles.letter}`}
+              
+            >
               {letter.letter.toUpperCase()}
             </Letter>
           </li>
