@@ -4,6 +4,7 @@ import {
   ALPHABET,
   STATUS,
   ENDPOINT,
+  GAME_STATUS
 } from "../../constants";
 import useFetch from "../../hooks/useFetch";
 
@@ -15,6 +16,10 @@ function DataProvider({ children }) {
   const [phrase, setPhrase] = React.useState(null);
   const [category, setCategory] = React.useState(null);
   const [categories, setCategories] = React.useState([]);
+  const [isMainMenuVisible, setIsMainMenuVisible] = React.useState(true);
+  const [gameStatus, setGameStatus] = React.useState(GAME_STATUS.IN_PROGRESS);
+  const [isGameStateMenuVisible, setIsGameStateMenuVisible] =
+  React.useState(false);
 
   const [wrongGuessesCount, setWrongGuessesCount] =
     React.useState(TOTAL_WRONG_GUESSES);
@@ -72,20 +77,23 @@ function DataProvider({ children }) {
   React.useEffect(() => {
     if (jsonData) {
       getCategoriesList(jsonData);
-      if (category) {
-        const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
-
-        setPhrase(() => mapPhraseLetters(selectedPhrase.name));
-
-        console.log(selectedPhrase);
-        setElementAsSelected(selectedPhrase);
-      }
     }
   }, [jsonData]);
 
   React.useEffect(() => {
     setIsLoadingState(isLoading);
   }, [isLoading]);
+
+  React.useEffect(() => {
+    if (category) {
+      const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
+
+      setPhrase(() => mapPhraseLetters(selectedPhrase.name));
+
+      console.log(selectedPhrase);
+      setElementAsSelected(selectedPhrase);
+    }
+  },[category])
 
   const value = {
     wrongGuessesCount,
@@ -98,6 +106,12 @@ function DataProvider({ children }) {
     category,
     setCategory,
     categories,
+    isMainMenuVisible,
+    setIsMainMenuVisible,
+    gameStatus, 
+    setGameStatus,
+    isGameStateMenuVisible, 
+    setIsGameStateMenuVisible
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

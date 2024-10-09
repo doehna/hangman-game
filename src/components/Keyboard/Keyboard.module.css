@@ -33,7 +33,7 @@
     pointer-events: none;
 }
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 625px) {
   .letter {
     height: 84px;
     border-radius: 24px;
@@ -46,7 +46,7 @@
   }
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1024px) {
     .letter {
       height: 84px;
     }

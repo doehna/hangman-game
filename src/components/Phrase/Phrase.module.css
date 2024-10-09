@@ -40,7 +40,7 @@ ol {
   opacity: 0;
 }
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 625px) {
   .letter {
     width: 88px;
     height: 112px;
@@ -49,7 +49,7 @@ ol {
   }
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1024px) {
   .letter {
     width: 112px;
     height: 128px;

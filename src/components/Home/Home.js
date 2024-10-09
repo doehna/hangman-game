@@ -7,30 +7,27 @@ import { DataContext } from "../DataProvider/DataProvider";
 import Loader from "../Loader/Loader";
 import MainMenu from "../MainMenu/MainMenu";
 import GameStateMenu from "../GameStateMenu/GameStateMenu";
-import paused from "../../assets/images/Paused.svg";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const { phrase, isLoading, category } = React.useContext(DataContext);
-  const [isMainMenuVisible, setIsMainMenuVisible] = React.useState(false);
-  const [isGameStateMenuVisible, setIsGameStateMenuVisible] =
-    React.useState(false);
+  const { phrase, isLoading, category, isMainMenuVisible, isGameStateMenuVisible, setIsGameStateMenuVisible } = React.useContext(DataContext);
+
   let navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!category) {
+    if (!category && !isMainMenuVisible) {
       let path = `/category`;
       navigate(path);
     }
     else {
-      console.log(category);
+      console.log(phrase);
     }
   }, []);
 
   return (
     <>
       {isMainMenuVisible ? (
-        <MainMenu setIsMainMenuVisible={setIsMainMenuVisible} />
+        <MainMenu />
       ) : (
         <>
           <Header
@@ -42,8 +39,6 @@ function Home() {
           {isGameStateMenuVisible && (
             <GameStateMenu
               setIsGameStateMenuVisible={setIsGameStateMenuVisible}
-              headingSrc={paused}
-              alt="Paused"
               imgClassName={styles.pausedHeader}
             />
           )}

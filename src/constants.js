@@ -35,4 +35,9 @@ export const STATUS = {
   DISABLED: "disabled",
 };
 
+export const GAME_STATUS = {
+  WIN: "win",
+  LOSE: "lose",
+  IN_PROGRESS: "in progress"
+};
 

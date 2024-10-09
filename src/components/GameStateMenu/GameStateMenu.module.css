@@ -17,11 +17,11 @@
   height: 92%;
 }
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 625px) {
   .menu {
     height: 83%;
   }
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1024px) {
 }

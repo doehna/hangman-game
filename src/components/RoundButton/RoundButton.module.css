@@ -13,7 +13,7 @@
   filter: brightness(110%);
 } */
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 625px) {
   .roundButton {
     width: 64px;
     height: 64px;
@@ -21,7 +21,7 @@
   }
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1024px) {
   .roundButton {
     width: 94px;
     height: 94px;
