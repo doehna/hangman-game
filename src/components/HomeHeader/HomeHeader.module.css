@@ -1,0 +1,27 @@
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-top: 46px;
+}
+
+@media only screen and (min-width: 625px) {
+  .menu {
+    gap: 32px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .menu {
+    gap: 57px;
+  }
+}
+
+.icon {
+  width: 16px;
+  height: 14px;
+}

@@ -17,22 +17,36 @@ function MainMenu() {
     let path = `/category`;
     navigate(path);
   };
+
+  const handleHowToPlayClick = () => {
+    setIsMainMenuVisible(false);
+    let path = `/how-to-play`;
+    navigate(path);
+  };
+
   return (
-    <Menu
-      headingSrc={logo}
-      alt="The Hangman game"
-      imgClassName={styles.logo}
-      wrapperClassName={styles.wrapper}
-    >
-      <RoundButton
-        iconSrc={iconPlay}
-        alt="Play"
-        buttonStyles={styles.playButton}
-        imgStyles={styles.playIcon}
-        onClick={handlePlayButton}
-      ></RoundButton>
-      <BlueButton className={styles.blueButton}>HOW TO PLAY</BlueButton>
-    </Menu>
+    <div className={styles.viewport}>
+      <Menu
+        headingSrc={logo}
+        alt="The Hangman game"
+        imgClassName={styles.logo}
+        wrapperClassName={styles.wrapper}
+      >
+        <RoundButton
+          iconSrc={iconPlay}
+          alt="Play"
+          buttonStyles={styles.playButton}
+          imgStyles={styles.playIcon}
+          onClick={handlePlayButton}
+        ></RoundButton>
+        <BlueButton
+          className={styles.blueButton}
+          onClick={handleHowToPlayClick}
+        >
+          HOW TO PLAY
+        </BlueButton>
+      </Menu>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Keyboard from "../Keyboard/Keyboard";
 import Phrase from "../Phrase/Phrase";
-import Header from "../Header/Header";
+import HomeHeader from "../HomeHeader/HomeHeader";
 import styles from "./Home.module.css";
 import { DataContext } from "../DataProvider/DataProvider";
 import Loader from "../Loader/Loader";
@@ -29,11 +29,11 @@ function Home() {
       {isMainMenuVisible ? (
         <MainMenu />
       ) : (
-        <>
-          <Header
+        <div className={styles.wrapper}>
+          <HomeHeader
             className={styles.header}
             setIsGameStateMenuVisible={setIsGameStateMenuVisible}
-          ></Header>
+          ></HomeHeader>
           {isLoading ? <Loader /> : phrase && <Phrase></Phrase>}
           <Keyboard isBlocked={isLoading}></Keyboard>
           {isGameStateMenuVisible && (
@@ -42,7 +42,7 @@ function Home() {
               imgClassName={styles.pausedHeader}
             />
           )}
-        </>
+        </div>
       )}
     </>
   );

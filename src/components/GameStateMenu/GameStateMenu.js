@@ -4,18 +4,27 @@ import BlueButton from "../BlueButton/BlueButton";
 import styles from "./GameStateMenu.module.css";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../DataProvider/DataProvider";
-import { TOTAL_WRONG_GUESSES, GAME_STATUS } from "../../constants";
-import {getMenuProps} from "../../helpers/game-helper"
+import { TOTAL_WRONG_GUESSES } from "../../constants";
+import { getMenuProps, getNewPhraseFromData, setAllLetterToEnabled } from "../../helpers/game-helper";
 
-function GameStateMenu({
-  setIsGameStateMenuVisible,
-  imgClassName,
-}) {
-  const { setWrongGuessesCount, setCategory, gameStatus } = React.useContext(DataContext);
+function GameStateMenu({ setIsGameStateMenuVisible, imgClassName }) {
+  const {
+    alphabet,
+    setAlphabet,
+    setWrongGuessesCount,
+    category,
+    setCategory,
+    gameStatus,
+    setPhrase,
+    jsonData,
+  } = React.useContext(DataContext);
   let navigate = useNavigate();
 
   const handleContinueClick = () => {
+    getNewPhraseFromData(category, jsonData, setPhrase);
     setIsGameStateMenuVisible(false);
+    setAllLetterToEnabled(alphabet, setAlphabet);
+    setWrongGuessesCount(TOTAL_WRONG_GUESSES);
   };
 
   const handleQuitClick = () => {
@@ -23,6 +32,7 @@ function GameStateMenu({
   };
 
   const handleNewCategoryClick = () => {
+    setIsGameStateMenuVisible(false);
     setWrongGuessesCount(TOTAL_WRONG_GUESSES);
     setCategory(null);
     let path = `/category`;
@@ -32,6 +42,7 @@ function GameStateMenu({
   const menuProps = getMenuProps(gameStatus);
 
   return (
+    <div className={styles.viewport}>
     <Menu
       headingSrc={menuProps.headingSrc}
       alt={menuProps.alt}
@@ -52,6 +63,7 @@ function GameStateMenu({
         QUIT GAME
       </BlueButton>
     </Menu>
+    </div>
   );
 }
 

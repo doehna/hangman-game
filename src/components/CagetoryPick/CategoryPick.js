@@ -1,14 +1,13 @@
 import React from "react";
-import RoundButton from "../RoundButton/RoundButton";
-import backIcon from "../../assets/images/icon-back.svg";
 import pickACategory from "../../assets/images/Pick a Category.svg";
 import { DataContext } from "../DataProvider/DataProvider";
 import BlueButton from "../BlueButton/BlueButton";
 import { useNavigate } from "react-router-dom";
 import styles from "./CategoryPick.module.css";
+import PageHeader from '../PageHeader/PageHeader';
 
 function CategoryPick() {
-  const { category, setCategory, categories } = React.useContext(DataContext);
+  const { setCategory, categories } = React.useContext(DataContext);
   let navigate = useNavigate();
 
   const handleCategoryClick = (event) => {
@@ -23,18 +22,8 @@ function CategoryPick() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <RoundButton
-          imgStyles={styles.imgStyles}
-          iconSrc={backIcon}
-          buttonStyles={styles.button}
-        ></RoundButton>
-        <img
-          src={pickACategory}
-          alt="Pick a category"
-          className={styles.pickACategory}
-        ></img>
-      </div>
+      <PageHeader imgSrc={pickACategory} imgAlt={"Pick a category"} imgClassName={styles.headerImgStyles}/>
+
       <div className={styles.categories}>
         {categories &&
           categories.map((category, index) => {

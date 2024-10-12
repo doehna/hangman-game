@@ -1,91 +1,82 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-    gap: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* position: relative; */
+  gap: 0px;
 }
 
 .header {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-}
-
-.pickACategory {
-    width: 65%;
-    height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .categories {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(auto-fill, 77px);
-    row-gap: 16px;
-    height: 680px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, 9.5vh);
+  row-gap: 16px;
+  height: 680px;
 }
 
 .blueButton {
-    letter-spacing: 5%;
-    font-size: 24px;
-    border-radius: 20px;
-    line-height: 120%;
+  letter-spacing: 5%;
+  font-size: 24px;
+  border-radius: 20px;
+  line-height: 120%;
 }
 
-.imgStyles {
-    width: 17px;
-    height: 16px;
+.headerImgStyles {
+    width: 100%;
 }
-
 
 @media only screen and (min-width: 625px) {
-
-.header {
+  .header {
     justify-content: center;
-}
-    .categories {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(auto-fill, 183px);
-        row-gap: 32px;
-        column-gap: 32px;
-        height: 680px;
-    }
+  }
 
-    .wrapper {
-        gap: 108px;
-    }
+  .categories {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, 18vh);
+    row-gap: 32px;
+    column-gap: 32px;
+    height: 680px;
+  }
 
-.pickACategory {
-    width: 62%;
-    /* height: 131px; */
-}
+  .wrapper {
+    gap: 0px;
+  }
 
-.button {
+  .button {
     position: absolute;
     left: 0;
-}
+  }
 
-.blueButton {
+  .blueButton {
     font-size: 48px;
     border-radius: 40px;
-}
+  }
 
-.imgStyles {
-    width: 28px;
-    height: 26px;
-}
-
+  .headerImgStyles {
+      width: 100%;
+  }   
 }
 
 @media only screen and (min-width: 1024px) {
-    .categories {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: repeat(auto-fill, 190px);
-    }
+  .categories {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, 18.5vh);
+    column-gap: 32px;
+    row-gap: 50px;
+  }
 
-.imgStyles {
-    width: 41px;
-    height: 38px;
-}
+   .headerImgStyles {
+      width: 100%;
+      max-width: 590px;
+  }   
 
+  .blueButton {
+    height: 18.5vh;
+  }
 }

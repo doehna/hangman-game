@@ -3,8 +3,11 @@ import Letter from "../Letter/Letter";
 import Button from "../Button/Button";
 import styles from "./Keyboard.module.css";
 import { DataContext } from "../DataProvider/DataProvider";
-import { STATUS, GAME_STATUS } from "../../constants";
-import { isLetterInPhrase } from "../../helpers/game-helper";
+import { STATUS } from "../../constants";
+import {
+  handleLetterSelected,
+  setAllLetterToEnabled,
+} from "../../helpers/game-helper";
 import useKeyDown from "../../hooks/useKeyDown";
 
 function Keyboard({ isBlocked = false }) {
@@ -16,56 +19,42 @@ function Keyboard({ isBlocked = false }) {
     phrase,
     setPhrase,
     setIsGameStateMenuVisible,
-    setGameStatus
+    setGameStatus,
   } = React.useContext(DataContext);
 
-  const setAllLetterToEnabled = () => {
-    const newAlphabet = alphabet.map((letter) => {
-        return {
-          status: STATUS.ENABLED,
-          letter: letter.letter
-        }
-      });
-      
-      setAlphabet(newAlphabet);
-  };
-
   React.useEffect(() => {
-    setAllLetterToEnabled();
+    setAllLetterToEnabled(alphabet, setAlphabet);
   }, []);
-
-  const handleLetterSelected = (letter) => {
-    const newAlphabet = [...alphabet];
-    let clickedLetter = newAlphabet.find((obj) => obj.letter === letter);
-    clickedLetter.status = STATUS.DISABLED;
-
-    setAlphabet(newAlphabet);
-
-    const isGuessCorrect = isLetterInPhrase(letter, phrase, setPhrase, setGameStatus, setIsGameStateMenuVisible);
-
-    if (isGuessCorrect) {
-      return;
-    }
-
-    if (wrongGuessesCount > 0) {
-      if (wrongGuessesCount === 1) {
-        setGameStatus(GAME_STATUS.LOSE);
-        setIsGameStateMenuVisible(true);
-        console.log(GAME_STATUS.LOSE);
-      }
-      setWrongGuessesCount(wrongGuessesCount - 1);
-    }
-  };
 
   const handleClick = (event) => {
     let id = event.target.id || event.target.parentElement.id;
 
-    handleLetterSelected(id);
+    handleLetterSelected(
+      id,
+      alphabet,
+      setAlphabet,
+      phrase,
+      setPhrase,
+      setGameStatus,
+      setIsGameStateMenuVisible,
+      wrongGuessesCount,
+      setWrongGuessesCount
+    );
   };
 
   const handleKeyDown = (event) => {
     if (event.code === `Key${event.key.toUpperCase()}`) {
-      handleLetterSelected(event.key.toUpperCase());
+      handleLetterSelected(
+        event.key.toUpperCase(),
+        alphabet,
+        setAlphabet,
+        phrase,
+        setPhrase,
+        setGameStatus,
+        setIsGameStateMenuVisible,
+        wrongGuessesCount,
+        setWrongGuessesCount
+      );
     }
   };
 

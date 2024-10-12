@@ -4,9 +4,10 @@ import {
   ALPHABET,
   STATUS,
   ENDPOINT,
-  GAME_STATUS
+  GAME_STATUS,
 } from "../../constants";
 import useFetch from "../../hooks/useFetch";
+import { getNewPhraseFromData } from "../../helpers/game-helper";
 
 export const DataContext = React.createContext();
 
@@ -19,7 +20,7 @@ function DataProvider({ children }) {
   const [isMainMenuVisible, setIsMainMenuVisible] = React.useState(true);
   const [gameStatus, setGameStatus] = React.useState(GAME_STATUS.IN_PROGRESS);
   const [isGameStateMenuVisible, setIsGameStateMenuVisible] =
-  React.useState(false);
+    React.useState(false);
 
   const [wrongGuessesCount, setWrongGuessesCount] =
     React.useState(TOTAL_WRONG_GUESSES);
@@ -37,43 +38,6 @@ function DataProvider({ children }) {
     setCategories(Object.keys(json["categories"]));
   };
 
-  const setElementAsSelected = (selectedPhrase) => {
-    if (category) {
-      const newData = { ...jsonData.categories };
-      const selectedElement = newData[category].find(
-        (item) => item.name === selectedPhrase.name
-      );
-      if (selectedElement) {
-        selectedElement.selected = true;
-      }
-    }
-  };
-
-  const getRandomPhraseFromUnselectedPhrases = () => {
-    if (!jsonData || !Array.isArray(jsonData.categories[category])) {
-      return;
-    }
-    const unselectedPhrases = jsonData.categories[category].filter(
-      (element) => element.selected !== true
-    );
-    const randomElementIndex = Math.floor(
-      Math.random() * unselectedPhrases.length
-    );
-    const selectedPhrase = unselectedPhrases[randomElementIndex];
-
-    return selectedPhrase;
-  };
-
-  const mapPhraseLetters = (phrase) => {
-    const phraseLetterArray = phrase.split("");
-    return phraseLetterArray.map((letter) => {
-      return {
-        letter: letter.toUpperCase(),
-        isSelected: false,
-      };
-    });
-  };
-
   React.useEffect(() => {
     if (jsonData) {
       getCategoriesList(jsonData);
@@ -85,15 +49,8 @@ function DataProvider({ children }) {
   }, [isLoading]);
 
   React.useEffect(() => {
-    if (category) {
-      const selectedPhrase = getRandomPhraseFromUnselectedPhrases();
-
-      setPhrase(() => mapPhraseLetters(selectedPhrase.name));
-
-      console.log(selectedPhrase);
-      setElementAsSelected(selectedPhrase);
-    }
-  },[category])
+    getNewPhraseFromData(category, jsonData, setPhrase);
+  }, [category]);
 
   const value = {
     wrongGuessesCount,
@@ -108,10 +65,11 @@ function DataProvider({ children }) {
     categories,
     isMainMenuVisible,
     setIsMainMenuVisible,
-    gameStatus, 
+    gameStatus,
     setGameStatus,
-    isGameStateMenuVisible, 
-    setIsGameStateMenuVisible
+    isGameStateMenuVisible,
+    setIsGameStateMenuVisible,
+    jsonData,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

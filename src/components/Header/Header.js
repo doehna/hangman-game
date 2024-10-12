@@ -1,30 +1,22 @@
 import React from "react";
 import RoundButton from "../RoundButton/RoundButton";
-import HealthPanel from "../HealthPanel/HealthPanel";
 import styles from "./Header.module.css";
-import iconMenu from "../../assets/images/icon-menu.svg";
 import { DataContext } from "../DataProvider/DataProvider";
 
-function Header({ setIsGameStateMenuVisible }) {
+function Header({ className, handleRoundButton, children, buttonIconSrc, buttonAlt, ...delegated }) {
   const { category } = React.useContext(DataContext);
 
-  const handleHamburgerButton = () => {
-    setIsGameStateMenuVisible(true);
-  };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.menu}>
+      <header className={`${styles.header} ${className}`}>
         <RoundButton
-          iconSrc={iconMenu}
-          alt="Hamburger Menu"
-          buttonStyles={styles.menuButton}
-          imgStyles={styles.hamburgerIcon}
-          onClick={handleHamburgerButton}
+          iconSrc={buttonIconSrc}
+          alt={buttonAlt}
+          buttonStyles={styles.roundButton}
+          imgStyles={styles.icon}
+          onClick={handleRoundButton} {...delegated}
         ></RoundButton>
-        <h1>{category}</h1>
-      </div>
-      <HealthPanel className={styles.healthPanel}></HealthPanel>
+        <h1>{children}</h1>
     </header>
   );
 }

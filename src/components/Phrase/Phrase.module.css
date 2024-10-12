@@ -7,13 +7,9 @@ ol {
 }
 
 .letter {
-  width: 40px;
-  height: 66px;
-  padding: 6px 12px; /* top/bottom, left/right */
-  /* box-shadow: inset 0 -2px 0px 3px rgba(20, 14, 102, 1),
-    inset 0 1px 0px 6px rgba(60, 116, 255, 1);
-  border-radius: 12px;
-  background-color: rgba(36, 98, 255, 1); */
+  width: clamp(40px, 11vw, 112px);
+  height: clamp(66px, 8vh, 112px);
+  padding: 6px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,20 +26,12 @@ ol {
   flex-direction: row;
   gap: 8px;
   border: none;
-}
-
-.hidden {
-  opacity: 0.25;
-}
-
-.empty {
-  opacity: 0;
+  padding: 0;
 }
 
 @media only screen and (min-width: 625px) {
   .letter {
-    width: 88px;
-    height: 112px;
+    height: clamp(112px, 11vh, 128px);
     border-radius: 32px;
     font-size: 64px;
   }
@@ -51,8 +39,7 @@ ol {
 
 @media only screen and (min-width: 1024px) {
   .letter {
-    width: 112px;
-    height: 128px;
+    height: clamp(112px, 12.5vh, 128px);
     border-radius: 40px;
     font-size: 88px;
   }

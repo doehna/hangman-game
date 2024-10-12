@@ -2,11 +2,14 @@
   display: grid;
 
   grid-template-columns: repeat(9, 1fr);
-  width: 86%;
+  grid-template-rows: repeat(3, 1fr);
+  width: 86vw;
   margin: 0px;
   padding: 0px;
   row-gap: 24px;
   column-gap: 8px;
+  margin-bottom: 114px;
+  height: 27vh;
 }
 
 .letter {
@@ -17,7 +20,7 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 1);
   color: rgba(38, 22, 118, 1);
-  height: 56px;
+  height: 100%;
   width: 100%;
   border-radius: 8px;
   font-size: 24px;
@@ -41,7 +44,7 @@
   }
 
   .keyboard {
-    width: 92%;
+    width: 92vw;
     column-gap: 16px;
   }
 }
@@ -52,7 +55,7 @@
     }
 
   .keyboard {
-    width: 81%;
+    width: 81vw;
         column-gap: 24px;
   }
 }

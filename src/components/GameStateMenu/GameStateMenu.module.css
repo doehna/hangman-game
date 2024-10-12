@@ -17,6 +17,22 @@
   height: 92%;
 }
 
+.viewport {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 110%;
+  height: 100%;
+  background-color: rgba(26, 4, 58, 0.75);
+  background-image: linear-gradient(
+    180deg,
+    rgba(26, 4, 58, 0.75) 0%,
+    rgba(21, 18, 120, 0.75) 70%,
+    rgba(43, 22, 119, 0.75) 100%
+  );
+}
+
 @media only screen and (min-width: 625px) {
   .menu {
     height: 83%;

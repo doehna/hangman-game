@@ -1,6 +1,14 @@
+.viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .playButton {
-  /* position: absolute; */
-  /* top: 188px; */
+  position: absolute;
+  top: 138px;
   width: 160px;
   min-height: 160px;
   box-shadow: inset 0 -4px 0px 5px rgba(36, 48, 65, 1),
@@ -20,8 +28,8 @@
 }
 
 .blueButton {
-  /* position:absolute; */
-  /* top: 405px; */
+  position:absolute;
+  top: 355px;
   font-size: 32px;
   color: rgba(255, 255, 255, 1);
   padding: 12px 64px;
@@ -43,7 +51,7 @@
   .playButton {
     width: 200px;
     min-height: 200px;
-    /* top: 239px; */
+    top: 188px;
   }
 
   .playIcon {
@@ -57,7 +65,7 @@
   }
 
   .blueButton {
-    /* top: 497px; */
+    top: 405px;
     font-size: 32px;
     color: rgba(255, 255, 255, 1);
     padding: 12px 64px;
