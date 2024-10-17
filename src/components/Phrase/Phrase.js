@@ -9,7 +9,6 @@ const listRef = React.createRef();
 
 function Phrase() {
   const { phrase } = React.useContext(DataContext);
-  // const [width, setWidth] = React.useState(listRef.current ? listRef.current.offsetWidth : null);
 
   const maxNumberOfLetters = findLongestTable(phrase).length;
 
@@ -17,7 +16,6 @@ function Phrase() {
     document.documentElement.style.setProperty('--numberOfLetters', maxNumberOfLetters);
   }, [phrase])
 
-  //const letterWidth = width/longestTable - 8;
   return (
     <ol className={styles.phrase} ref={listRef}>
       {phrase.map((row, rowIndex) => {

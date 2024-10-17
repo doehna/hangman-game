@@ -16,8 +16,6 @@ const winIfPhraseGuessed = (
           unselectedLetters.push(letter)
         }
       })
-      // const moreUnselectedLetters = row.filter((letter) => letter.isSelected === false);
-      // unselectedLetters.concat(moreUnselectedLetters);
     });
 
     if (unselectedLetters.length === 0) {
@@ -66,17 +64,6 @@ const getRandomPhraseFromUnselectedPhrases = (jsonData, category) => {
 const isLetter = (char) => {
   return char.toLowerCase() !== char.toUpperCase();
 };
-
-// const mapPhraseLetters = (phrase) => {
-//   splitPhraseIntoRows(phrase);
-//   const phraseLetterArray = phrase.split("");
-//   return phraseLetterArray.map((letter) => {
-//     return {
-//       letter: letter.toUpperCase(),
-//       isSelected: !isLetter(letter),
-//     };
-//   });
-// };
 
 const splitPhraseIntoRows = (phrase) => {
   const phraseWordsArray = phrase.split(" ");
@@ -135,8 +122,6 @@ export const isLetterInPhrase = (
         foundLetter.push(item);
       }
     })
-    // const moreFoundLetters = row.filter((item) => item.letter === letter);
-    // foundLetter.concat(moreFoundLetters);
   });
 
   if (foundLetter && foundLetter.length > 0) {
@@ -169,7 +154,6 @@ export const getNewPhraseFromData = (category, jsonData, setPhrase) => {
     );
 
     setPhrase(() => splitPhraseIntoRows(selectedPhrase.name));
-    //mapPhraseLetters(selectedPhrase.name));
 
     console.log(selectedPhrase);
     setPhraseAsSelected(jsonData, category, selectedPhrase);
