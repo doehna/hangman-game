@@ -1,4 +1,4 @@
-import { GAME_STATUS, STATUS } from "../constants";
+import { GAME_STATUS, STATUS, MAX_ROW_LENGTH } from "../constants";
 import pausedHeading from "../assets/images/Paused.svg";
 import winHeading from "../assets/images/You Win.svg";
 import lostHeading from "../assets/images/You Lose.svg";
@@ -9,9 +9,16 @@ const winIfPhraseGuessed = (
   setIsGameStateMenuVisible
 ) => {
   if (phrase) {
-    const unselectedLetters = phrase.filter(
-      (letter) => letter.isSelected === false
-    );
+    let unselectedLetters = [];
+    phrase.forEach((row) => {
+      row.forEach((letter) => {
+        if(letter.isSelected === false) {
+          unselectedLetters.push(letter)
+        }
+      })
+      // const moreUnselectedLetters = row.filter((letter) => letter.isSelected === false);
+      // unselectedLetters.concat(moreUnselectedLetters);
+    });
 
     if (unselectedLetters.length === 0) {
       setGameStatus(GAME_STATUS.WIN);
@@ -19,6 +26,92 @@ const winIfPhraseGuessed = (
       console.log(GAME_STATUS.WIN);
     }
   }
+};
+
+const setAllPhrasesFromCategoryToUnselected = (jsonData, category) => {
+  if (!jsonData || !Array.isArray(jsonData.categories[category])) {
+    return;
+  }
+
+  jsonData.categories[category].forEach((phrase) => {
+    phrase.selected = false;
+  });
+
+  return jsonData.categories[category];
+};
+
+const getRandomPhraseFromUnselectedPhrases = (jsonData, category) => {
+  if (!jsonData || !Array.isArray(jsonData.categories[category])) {
+    return;
+  }
+  let unselectedPhrases = jsonData.categories[category].filter(
+    (element) => element.selected !== true
+  );
+
+  if (!unselectedPhrases || unselectedPhrases.length < 1) {
+    unselectedPhrases = setAllPhrasesFromCategoryToUnselected(
+      jsonData,
+      category
+    );
+  }
+
+  const randomElementIndex = Math.floor(
+    Math.random() * unselectedPhrases.length
+  );
+  const selectedPhrase = unselectedPhrases[randomElementIndex];
+
+  return selectedPhrase;
+};
+
+const isLetter = (char) => {
+  return char.toLowerCase() !== char.toUpperCase();
+};
+
+// const mapPhraseLetters = (phrase) => {
+//   splitPhraseIntoRows(phrase);
+//   const phraseLetterArray = phrase.split("");
+//   return phraseLetterArray.map((letter) => {
+//     return {
+//       letter: letter.toUpperCase(),
+//       isSelected: !isLetter(letter),
+//     };
+//   });
+// };
+
+const splitPhraseIntoRows = (phrase) => {
+  const phraseWordsArray = phrase.split(" ");
+  let rows = [[]];
+  let i = 0;
+
+  phraseWordsArray.forEach((word) => {
+    const wordLetterArray = word.split("");
+
+    // if rows[i].length > 0 then include space " "
+    let hasReachedMaxRowLength =
+      rows[i].length + wordLetterArray.length + (rows[i].length > 0 ? 1 : 0) >
+      MAX_ROW_LENGTH;
+
+    if (hasReachedMaxRowLength) {
+      i++;
+      rows[i] = [];
+    } else {
+      if (rows[i].length > 0) {
+        rows[i].push({
+          letter: " ",
+          isSelected: true,
+        });
+      }
+    }
+
+    wordLetterArray.forEach((letter) => {
+      rows[i].push({
+        letter: letter.toUpperCase(),
+        isSelected: !isLetter(letter),
+      });
+    });
+  });
+
+  return rows;
 };
 
 export const isLetterInPhrase = (
@@ -32,9 +125,19 @@ export const isLetterInPhrase = (
     return;
   }
 
+  let foundLetter = [];
+
   const newPhrase = [...phrase];
 
-  const foundLetter = newPhrase.filter((item) => item.letter === letter);
+  newPhrase.forEach((row) => {
+    row.forEach((item) => {
+      if(item.letter === letter) {
+        foundLetter.push(item);
+      }
+    })
+    // const moreFoundLetters = row.filter((item) => item.letter === letter);
+    // foundLetter.concat(moreFoundLetters);
+  });
 
   if (foundLetter && foundLetter.length > 0) {
     foundLetter.forEach((item) => (item.isSelected = true));
@@ -44,35 +147,6 @@ export const isLetterInPhrase = (
   winIfPhraseGuessed(newPhrase, setGameStatus, setIsGameStateMenuVisible);
 
   return foundLetter.length > 0;
-};
-
-const getRandomPhraseFromUnselectedPhrases = (jsonData, category) => {
-  if (!jsonData || !Array.isArray(jsonData.categories[category])) {
-    return;
-  }
-  const unselectedPhrases = jsonData.categories[category].filter(
-    (element) => element.selected !== true
-  );
-  const randomElementIndex = Math.floor(
-    Math.random() * unselectedPhrases.length
-  );
-  const selectedPhrase = unselectedPhrases[randomElementIndex];
-
-  return selectedPhrase;
-};
-
-const isLetter = (char) => {
-  return char.toLowerCase() !== char.toUpperCase();
-}
-
-const mapPhraseLetters = (phrase) => {
-  const phraseLetterArray = phrase.split("");
-  return phraseLetterArray.map((letter) => {
-    return {
-      letter: letter.toUpperCase(),
-      isSelected: !isLetter(letter),
-    };
-  });
 };
 
 export const setPhraseAsSelected = (jsonData, category, selectedPhrase) => {
@@ -94,7 +168,8 @@ export const getNewPhraseFromData = (category, jsonData, setPhrase) => {
       category
     );
 
-    setPhrase(() => mapPhraseLetters(selectedPhrase.name));
+    setPhrase(() => splitPhraseIntoRows(selectedPhrase.name));
+    //mapPhraseLetters(selectedPhrase.name));
 
     console.log(selectedPhrase);
     setPhraseAsSelected(jsonData, category, selectedPhrase);
@@ -147,7 +222,7 @@ export const handleLetterSelected = (
   const newAlphabet = [...alphabet];
   let clickedLetter = newAlphabet.find((obj) => obj.letter === letter);
 
-  if(clickedLetter.status === STATUS.DISABLED) {
+  if (clickedLetter.status === STATUS.DISABLED) {
     return;
   }
 
@@ -175,4 +250,10 @@ export const handleLetterSelected = (
     }
     setWrongGuessesCount(wrongGuessesCount - 1);
   }
+};
+
+export const findLongestTable = (tables) => {
+  return tables.reduce((longest, current) => {
+    return current.length > longest.length ? current : longest;
+  }, []);
 };

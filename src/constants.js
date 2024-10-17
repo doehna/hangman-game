@@ -42,3 +42,4 @@ export const GAME_STATUS = {
   IN_PROGRESS: "in progress"
 };
 
+export const MAX_ROW_LENGTH = 12;

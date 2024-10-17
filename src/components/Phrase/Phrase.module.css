@@ -1,13 +1,30 @@
+:root {
+  --offsetWidth: calc(0.9*300px);
+  --numberOfLetters: 12;
+  --gap: 8px;
+}
+
 li {
   list-style-type: none;
 }
 
 ol {
   list-style-type: none;
+  width: 100%;
+}
+
+.row {
+  display: grid;
+  width: 100%;
+  gap: var(--gap);
+  justify-content: center;
+  /* grid-template-columns: repeat(var(--numberOfLetters), minmax(40px, 1fr));
+  grid-template-rows: repeat(var(--numberOfRows), 1fr); */ 
 }
 
 .letter {
-  width: clamp(40px, 11vw, 112px);
+  max-width: clamp(40px, 11vw, 112px); 
+  min-width: calc(var(--offsetWidth)/var(--numberOfLetters) - var(--gap));
   height: clamp(66px, 8vh, 112px);
   padding: 6px 12px;
   display: flex;
@@ -23,13 +40,29 @@ ol {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  gap: 8px;
+  flex-direction: column;
+  gap: var(--gap);
   border: none;
   padding: 0;
 }
 
+@media only screen and (min-width: 400px) {
+  :root {
+    --offsetWidth: calc(0.9*400px);
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  :root {
+    --offsetWidth: calc(0.9*500px);
+  }
+}
+
 @media only screen and (min-width: 625px) {
+  :root {
+    --offsetWidth: calc(0.9*625px);
+  }
+
   .letter {
     height: clamp(112px, 11vh, 128px);
     border-radius: 32px;
@@ -37,10 +70,39 @@ ol {
   }
 }
 
+@media only screen and (min-width: 700px) {
+  :root {
+    --offsetWidth: calc(0.9*700px);
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  :root {
+    --offsetWidth: calc(0.9*800px);
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  :root {
+    --offsetWidth: calc(0.9*900px);
+  }
+}
+
 @media only screen and (min-width: 1024px) {
+  :root {
+    --offsetWidth: calc(0.9*1024px);
+  }
+
   .letter {
+    max-width: clamp(40px, 11vw, 112px); 
     height: clamp(112px, 12.5vh, 128px);
     border-radius: 40px;
-    font-size: 88px;
+    font-size: clamp(48px, 7vw, 88px);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  :root {
+    --offsetWidth: calc(0.9*1200px);
   }
 }
