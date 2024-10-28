@@ -4,17 +4,22 @@ import styles from "./Phrase.module.css";
 import "../../global.css";
 import { DataContext } from "../DataProvider/DataProvider";
 import {findLongestTable} from "../../helpers/game-helper"
-
-const listRef = React.createRef();
+import useRefDimensions from "../../hooks/useRefDimensions"
 
 function Phrase() {
   const { phrase } = React.useContext(DataContext);
 
+  const listRef = React.createRef();
+  const dimensions = useRefDimensions();
   const maxNumberOfLetters = findLongestTable(phrase).length;
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--offsetWidth', `${0.8*dimensions.innerWidth}px`);
+  }, [dimensions.innerWidth]);
 
   React.useEffect(() => { 
     document.documentElement.style.setProperty('--numberOfLetters', maxNumberOfLetters);
-  }, [phrase])
+  }, [maxNumberOfLetters]);
 
   return (
     <ol className={styles.phrase} ref={listRef}>
